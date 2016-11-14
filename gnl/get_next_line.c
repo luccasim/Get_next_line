@@ -6,7 +6,7 @@
 /*   By: luccasim <luccasim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/03/13 22:32:50 by luccasim          #+#    #+#             */
-/*   Updated: 2016/03/22 02:47:39 by luccasim         ###   ########.fr       */
+/*   Updated: 2016/11/14 17:09:47 by luccasim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static t_list		*find_fd(int fd)
 	t_list			*tmp;
 	t_list			*new;
 	t_fd			content;
-	
+
 	content.fd = fd;
 	content.str = NULL;
 	if (!list)

@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_lstlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luccasim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/13 14:05:54 by luccasim          #+#    #+#             */
-/*   Updated: 2016/09/13 14:06:00 by luccasim         ###   ########.fr       */
+/*   Created: 2016/11/14 16:54:19 by luccasim          #+#    #+#             */
+/*   Updated: 2016/11/14 16:55:07 by luccasim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_unix.h"
+#include "list.h"
 
-int		ft_error(char *error, char *msg)
+size_t	ft_lstlen(t_list *list)
 {
-	if (!error)
-		ft_fprintf(2, "{r:1:%s}\n", msg);
-	else if (!msg)
-		ft_fprintf(2, "{r:1:%s}: {w:1:%s}\n", error, "error");
-	else
-		ft_fprintf(2, "{r:1:%s}: {w:1:%s}\n", error, msg);
-	return (FAIL);
+	t_list	*tmp;
+	size_t	k;
+
+	tmp = list;
+	k = 0;
+	while (tmp)
+	{
+		k++;
+		tmp = tmp->next;
+	}
+	return (k);
 }

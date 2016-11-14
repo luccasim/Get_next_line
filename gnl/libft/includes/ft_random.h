@@ -13,7 +13,7 @@
 #ifndef FT_RANDOM_H
 # define FT_RANDOM_H
 
-# define RAND(a, b) ft_rand_ab(a, b)
+# define RAND(a) ft_rand_ab(0 , a)
 
 int		ft_random(void);
 int		ft_rand(int a);

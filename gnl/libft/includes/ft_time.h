@@ -14,14 +14,15 @@
 # define FT_TIME_H
 
 # include <time.h>
+# include "ft_printf.h"
 
-# define TIME 		time(NULL)
-# define CLOCK 		clock()
-# define CPS(a)		ft_cps(a)
+# define PUTCLOCK(a)		ft_printf("{c:1:%f}\n", ft_cps(a))
+# define TIME_ACTION_START	0
+# define TIME_ACTION_END	1
+# define TIME_START			ft_time(TIME_ACTION_START)
+# define TIME_END			ft_time(TIME_ACTION_END)
 
 double	ft_cps(clock_t clock);
-/*
-** IN BUILDING
-*/
+void	ft_time(int action);
 
 #endif

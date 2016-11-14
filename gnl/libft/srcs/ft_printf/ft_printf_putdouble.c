@@ -6,16 +6,15 @@
 /*   By: luccasim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/12 17:33:11 by luccasim          #+#    #+#             */
-/*   Updated: 2016/04/12 17:49:44 by luccasim         ###   ########.fr       */
+/*   Updated: 2016/11/14 16:59:05 by luccasim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf_struct.h"
-#include <math.h>
 
-static void 		write_margin(int nb)
+static void			write_margin(int nb)
 {
-	char 	tab[nb + 1];
+	char	tab[nb + 1];
 	int		i;
 
 	i = 0;
@@ -31,11 +30,11 @@ static void 		write_margin(int nb)
 	}
 }
 
-static int 			write_decimal(long double f, int size)
+static int			write_decimal(long double f, int size)
 {
 	int					i;
 	int					k;
-	uint64_t		 	nb;
+	uint64_t			nb;
 
 	i = 0;
 	k = 0;
@@ -76,7 +75,7 @@ int					ft_printf_putdouble(double f, int size)
 		ft_printf_tmp(".", -1, SET);
 	r = f - nb;
 	nb = myround(r * ft_printf_pow(10, size));
-	write_margin(write_decimal(r,size));
+	write_margin(write_decimal(r, size));
 	ft_printf_putnbr(nb, 10, 0);
 	return (0);
 }

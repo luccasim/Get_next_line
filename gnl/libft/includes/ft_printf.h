@@ -22,6 +22,7 @@
 
 # define PUTSTR(a)		ft_printf("{w:1:%s}\n", a)
 # define PUTNBR(a)		ft_printf("{y:1:%lli}\n", a)
+# define PUTCHAR(a)		ft_printf("%c\n",a)
 # define PUTDB(a)		ft_printf("{c:1:%f}\n", a)
 # define PUTBIN(a)		ft_printf("{d:1:%b}\n", a)
 # define PUTTIME(a)		ft_printf("{g:1:%hk}\n", a)

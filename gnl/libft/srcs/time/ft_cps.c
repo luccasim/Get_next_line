@@ -12,7 +12,7 @@
 
 #include "ft_time.h"
 
-double	ft_cps(clock_t clock)
+double	ft_cps(clock_t c)
 {
-	return ((double)(clock / CLOCKS_PER_SEC));
+	return (((double)c / CLOCKS_PER_SEC));
 }
