@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_number.c                                 :+:      :+:    :+:   */
+/*   ft_strstrlen.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luccasim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/14 06:45:50 by luccasim          #+#    #+#             */
-/*   Updated: 2016/07/14 06:45:54 by luccasim         ###   ########.fr       */
+/*   Created: 2016/11/14 17:05:45 by luccasim          #+#    #+#             */
+/*   Updated: 2016/11/14 17:07:35 by luccasim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_struct.h"
+#include <string.h>
 
-int		ft_printf_number(va_list ap)
+size_t	ft_strstrlen(char **split)
 {
-	t_printf_flags	*flags;
-	int				*ptr;
+	size_t	size;
 
-	flags = get_printf_flags(GET_FLAGS);
-	ptr = va_arg(ap, int *);
-	*ptr = ft_printf_buffer(NULL, 0);
-	return (0);
+	size = 0;
+	while (*split)
+	{
+		size++;
+		split++;
+	}
+	return (size);
 }

@@ -73,4 +73,12 @@ int		ft_putnbr_fd(int nb, int fd);
 int		ft_putchar(char c);
 int		ft_putchar_fd(char c, int fd);
 
+/*
+** Bonus
+*/
+
+void	ft_strdelsplit(char **split);
+size_t	ft_strstrlen(char **split);
+void	ft_swap(int *a, int *b);
+
 #endif

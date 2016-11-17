@@ -1,32 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_swap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luccasim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/07 15:00:01 by luccasim          #+#    #+#             */
-/*   Updated: 2016/03/29 16:02:23 by luccasim         ###   ########.fr       */
+/*   Created: 2016/11/16 10:31:00 by luccasim          #+#    #+#             */
+/*   Updated: 2016/11/16 10:31:02 by luccasim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "ft_printf_struct.h"
-
-int	ft_printf(char *str, ...)
+void	ft_swap(int *a, int *b)
 {
-	va_list		ap;
+	int	tmp;
 
-	va_start(ap, str);
-	while (*str)
+	if (a && b)
 	{
-		if (*str == '%')
-			str += ft_printf_lexer(str, ap);
-		else if (*str == '{')
-			str += ft_printf_color(str, ap);
-		else
-			ft_printf_buffer(str++, BUF_CHAR);
+		tmp = *a;
+		*a = *b;
+		*b = tmp;
 	}
-	va_end(ap);
-	return (ft_printf_buffer(str, BUF_READ));
 }

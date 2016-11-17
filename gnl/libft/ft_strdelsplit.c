@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_random.c                                        :+:      :+:    :+:   */
+/*   ft_strdelsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: luccasim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/20 03:55:44 by luccasim          #+#    #+#             */
-/*   Updated: 2016/07/20 03:55:48 by luccasim         ###   ########.fr       */
+/*   Created: 2016/11/14 17:05:29 by luccasim          #+#    #+#             */
+/*   Updated: 2016/11/14 17:07:21 by luccasim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <time.h>
 #include <stdlib.h>
-#include "ft_random.h"
 
-int		ft_random(void)
+void	ft_strdelsplit(char **split)
 {
-	static int		init = 1;
+	char	**tmp;
 
-	if (init)
+	tmp = split;
+	while (*split)
 	{
-		init = 0;
-		srand(time(NULL));
+		free(*split);
+		split++;
 	}
-	return (rand());
+	free(tmp);
 }

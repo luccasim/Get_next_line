@@ -10,42 +10,29 @@
 #                                                                              #
 #******************************************************************************#
 
-CC		=	llvm-gcc $(CFLAGS)
-CFLAGS	=	-Wall -Werror -Wextra
-INC		=	-I includes/ -I minilibx_macos/
-HEAD	=	$(shell find includes -name '*.h' -type f)
-MLX		=	-L minilibx_macos/ -lmlx -framework OpenGL -framework AppKit
-SRC		=	$(shell find srcs -name '*.c' -type f)
-OBJ		=	$(patsubst %.c, $(DOBJ)/%.o, $(SRC))
-SDIR	=	$(shell find srcs -type d)
-ODIR	=	$(addprefix $(DOBJ)/,$(SDIR))
-DOBJ	=	objs
+CC		=	clang
+CFLAGS	=	-Wall -Werror -Wextra $(INC)
+INC		=	-I .
+HEAD	=	$(shell find . -name '*.h' -type f)
+SRC		=	$(shell find . -name '*.c' -type f)
+OBJ		=	$(patsubst %.c, %.o, $(SRC))
 NAME	=	libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEAD)
 	@ar rcs $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\033[32;1m$(NAME) created successfully!\033[0m"
+	@echo "$(NAME) Created!"
 
-$(DOBJ)/%.o:%.c
-	@mkdir -p $(ODIR)
-	@$(CC) $(INC) -c $< -o $@
-
-test: $(NAME) main.c $(HEAD)
-	llvm-gcc -o test main.c -L . -lft $(MLX) -I includes
+%.o:%.c
+	$(CC) $(CFLAGS) -o $@ -c $< 
 
 clean:
-	@/bin/rm -rf $(DOBJ)
+	@/bin/rm -rf $(OBJ)
 
 fclean: clean
 	@/bin/rm -rf $(NAME)
-	@echo "\033[31;1m$(NAME) removes!\033[0m"
-
-norme: $(SRC)
-	norminette srcs/*/*.c
-	norminette includes/*.h
 
 re: fclean all
 
