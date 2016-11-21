@@ -12,8 +12,8 @@
 
 CC		=	clang
 CFLAGS	=	-Wall -Werror -Wextra $(INC)
-INC		=	-I .
-HEAD	=	$(shell find . -name '*.h' -type f)
+INC		=	-I includes/
+HEAD	=	$(shell find includes -name '*.h' -type f)
 SRC		=	$(shell find . -name '*.c' -type f)
 OBJ		=	$(patsubst %.c, %.o, $(SRC))
 NAME	=	libft.a

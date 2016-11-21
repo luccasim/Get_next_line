@@ -20,10 +20,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define BUF_SIZE 	100
-# define GNL_ERROR	-1
-# define GNL_READ	1
-# define GNL_END	0
+# define BUF_SIZE 	8
 
 typedef struct	s_fd
 {

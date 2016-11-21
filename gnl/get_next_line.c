@@ -3,56 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luccasim <luccasim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: luccasim <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/03/13 22:32:50 by luccasim          #+#    #+#             */
-/*   Updated: 2016/11/14 17:09:47 by luccasim         ###   ########.fr       */
+/*   Created: 2016/11/21 16:56:36 by luccasim          #+#    #+#             */
+/*   Updated: 2016/11/21 16:56:43 by luccasim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "ft_printf.h"
 
-static char			*save_char(char *cpy, char **line, int *lec)
-{
-	int		i;
-	char	*new;
-	char	*ret;
-
-	if (!cpy)
-		return (NULL);
-	i = 0;
-	while (cpy[i])
-	{
-		if (cpy[i] == '\n')
-		{
-			ret = ft_strsub(cpy, 0, i);
-			new = ft_strdup(cpy + i + 1);
-			free(cpy);
-			*line = ret;
-			return (new);
-		}
-		i++;
-	}
-	*line = cpy;
-	*lec = (*cpy) ? 1 : 0;
-	return (NULL);
-}
-
-static char			*ft_realloc(char *s1, char const *s2)
-{
-	char	*new;
-
-	if (!s1)
-		s1 = ft_strnew(0);
-	new = ft_strnew(ft_strlen(s1) + ft_strlen(s2));
-	ft_strcpy(new, s1);
-	ft_strcat(new, s2);
-	free(s1);
-	return (new);
-}
-
-static t_list		*find_fd(int fd)
+static t_list			*find_fd(int fd)
 {
 	static t_list	*list = NULL;
 	t_list			*tmp;
@@ -79,27 +39,73 @@ static t_list		*find_fd(int fd)
 	return (tmp);
 }
 
-int					get_next_line(int fd, char **line)
+static char				*ft_realloc(char *s1, char *s2)
 {
-	char			buf[BUF_SIZE + 1];
-	char			*cpy;
-	t_list			*lst;
-	int				ret;
+	char *new;
 
-	if (line == NULL || fd < 0)
-		return (GNL_ERROR);
-	lst = find_fd(fd);
-	cpy = ((t_fd*)(lst->content))->str;
-	while ((ret = read(fd, buf, BUF_SIZE)))
+	if (!s1)
+		s1 = ft_strnew(BUF_SIZE);
+	new = ft_strnew(ft_strlen(s1) + BUF_SIZE);
+	ft_strcpy(new, s1);
+	ft_strcat(new, s2);
+	free(s1);
+	return (new);
+}
+
+static char				*save_line(char *cpy, char **line)
+{
+	char	*save;
+	char	*tmp;
+
+	save = 0;
+	if ((tmp = ft_strchr(cpy, '\n')))
 	{
-		if (ret == -1)
-			return (GNL_ERROR);
+		*tmp = 0;
+		save = ft_strdup(++tmp);
+		*line = ft_strdup(cpy);
+		free(cpy);
+		return (save);
+	}
+	return (save);
+}
+
+static int				read_line(int fd, char **line, char *buf, int ret)
+{
+	t_list		*save;
+	char		*cpy;
+
+	save = find_fd(fd);
+	cpy = (char*)((t_fd*)(save->content))->str;
+	while ((ret = read(fd, buf, BUF_SIZE)) > 0)
+	{
 		buf[ret] = 0;
 		cpy = ft_realloc(cpy, buf);
-		if ((((t_fd*)(lst->content))->str = save_char(cpy, line, &ret)))
-			return (GNL_READ);
+		if ((((t_fd*)(save->content))->str = save_line(cpy, line)))
+			return (1);
 	}
-	if ((((t_fd*)(lst->content))->str = save_char(cpy, line, &ret)))
-		return (GNL_READ);
+	if (cpy && ret > -1)
+	{
+		if (!*cpy)
+			return (0);
+		if (!(((t_fd*)(save->content))->str = save_line(cpy, line)))
+		{
+			*line = ft_strdup(cpy);
+			free(cpy);
+		}
+		return (1);
+	}
+	return (ret);
+}
+
+int						get_next_line(int fd, char **line)
+{
+	int		ret;
+	char	buf[BUF_SIZE + 1];
+
+	if (fd < 0 || !line)
+		return (-1);
+	*line = 0;
+	ret = 1;
+	ret = read_line(fd, line, buf, ret);
 	return (ret);
 }
