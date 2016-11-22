@@ -19,6 +19,6 @@ char	*ft_strcat(char *s1, const char *s2)
 	s = s1;
 	while (*s)
 		s++;
-	ft_memcpy(s, s2, ft_strlen(s2) + 1);
+	ft_strcpy(s, s2);
 	return (s1);
 }

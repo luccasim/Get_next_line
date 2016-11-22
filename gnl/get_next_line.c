@@ -44,8 +44,8 @@ static char				*ft_realloc(char *s1, char *s2)
 	char *new;
 
 	if (!s1)
-		s1 = ft_strnew(BUF_SIZE);
-	new = ft_strnew(ft_strlen(s1) + BUF_SIZE);
+		s1 = ft_strnew(BUFF_SIZE);
+	new = ft_strnew(ft_strlen(s1) + BUFF_SIZE);
 	ft_strcpy(new, s1);
 	ft_strcat(new, s2);
 	free(s1);
@@ -76,7 +76,7 @@ static int				read_line(int fd, char **line, char *buf, int ret)
 
 	save = find_fd(fd);
 	cpy = (char*)((t_fd*)(save->content))->str;
-	while ((ret = read(fd, buf, BUF_SIZE)) > 0)
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
 		buf[ret] = 0;
 		cpy = ft_realloc(cpy, buf);
@@ -100,7 +100,7 @@ static int				read_line(int fd, char **line, char *buf, int ret)
 int						get_next_line(int fd, char **line)
 {
 	int		ret;
-	char	buf[BUF_SIZE + 1];
+	char	buf[BUFF_SIZE + 1];
 
 	if (fd < 0 || !line)
 		return (-1);
