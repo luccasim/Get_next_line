@@ -20,7 +20,7 @@ static t_list		*find_fd(int fd, int first)
 	t_fd			content;
 
 	if (first)
-		return (list);
+		return (list = (first == -1) ? NULL : list);
 	content.fd = fd;
 	content.str = NULL;
 	if (!list)
@@ -53,7 +53,7 @@ static void			free_fd(t_list *del)
 	{
 		ft_strdel(&str);
 		free(del);
-		first = NULL;
+		find_fd(0, -1);
 	}
 	else
 	{
